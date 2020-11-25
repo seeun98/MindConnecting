@@ -1,0 +1,184 @@
+{% extends "index.html" %}
+
+{% block custom_style %}
+<style>
+    .shadow {
+        -webkit-box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+        -moz-box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+        box-shadow: 27px 43px 43px -26px rgba(89, 89, 89, 0.39);
+    }
+
+    /*
+    .shadow-light{
+        -webkit-box-shadow: 45px 45px 104px -33px rgba(38,38,38,0.92);
+        -moz-box-shadow: 45px 45px 104px -33px rgba(38,38,38,0.92);
+        box-shadow: 45px 45px 104px -33px rgba(38,38,38,0.92);
+    }*/
+    .login-form-container {
+
+        background: #f5f5f5;
+        display: flex;
+        flex-direction: row;
+        box-shadow: 10px black;
+        border-radius: 10px;
+
+    }
+
+    .login-form-right-side {
+        width: 50%;
+        border-radius: 10px 0px 0px 10px;
+        padding: 75px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        background-image: radial-gradient(ellipse farthest-corner at 0 140%, #5d9dff 0%, #2178ff 70%, #3585ff 70%);
+    }
+
+    .login-form-right-side h1 {
+        color: white;
+        width: 100%;
+        text-align: right;
+        opacity: 0.9;
+
+    }
+
+    .login-form-right-side p {
+        padding-top: 50px;
+        font-size: 12px;
+        text-align: right;
+        opacity: 0.8;
+    }
+
+    .login-form-left-side {
+        width: 50%;
+        border-radius: 0px 10px 10px 0px;
+        display: flex;
+
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+        background: rgb(255, 255, 255);
+        background: linear-gradient(287deg, rgba(255, 255, 255, 1) 0%, rgba(243, 244, 244, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    }
+
+    .login-form-left-side .login-top-wrap {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+    }
+
+    .login-form-left-side .login-top-wrap span {
+        color: gray;
+        font-size: 11px;
+        padding-right: 20px;
+
+    }
+
+    .login-form-left-side .login-top-wrap .create-account-btn {
+        background: white;
+        border: 0;
+        width: 85px;
+        height: 35px;
+        font-size: 11px;
+        color: #2178ff;
+        border-radius: 3px;
+
+    }
+
+    .login-input-container {
+        padding-top: 120px;
+        width: 300px;
+    }
+
+    .input-group .row row-space {
+        width: 300px;
+        height: 45px;
+        margin-top: 20px;
+        border-radius: 2px;
+        border-bottom: solid 2px #2178ff;
+
+    }
+
+    .title {
+        text-decoration-color: darkblue;
+    }
+    </style>
+
+{% endblock %}
+{% block content %}
+
+<div class="page-container" style="margin:100px 100px 100px 100px">
+    <div class="login-form-container shadow">
+        <div class="login-form-right-side">
+            <div class="top-logo-wrap">
+
+            </div>
+            <h1>MIND CONNECTING</h1>
+            <h2>Register</h2>
+        </div>
+        <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo" style="width:200%;">
+            <div class="wrapper wrapper--w680">
+                <div class="card card-1">
+                    <div class="card-heading">
+                        <img href="static/images/school.jpg">
+                    </div>
+                    <div class="card-body">
+                        <div >
+                            <h2 class="title" style="text-align:center; text-decoration-color: darkblue">Join Us</h2>
+                        </div>
+                         <form method="post" class="post-form" style="margin:100px ">
+                            {{ form.csrf_token }}
+                            {% include "form_errors.html" %}
+                            <div class="form-group">
+                                <label for="userid">아이디</label>
+                                <input type="text" class="form-control" name="userid" id="userid"
+                                       value="{{ form.userid.data or '' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="password1">비밀번호</label>
+                                <input type="password" class="form-control" name="password1" id="password1"
+                                       value="{{ form.password1.data or '' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="password2">비밀번호 확인</label>
+                                <input type="password" class="form-control" name="password2" id="password2"
+                                       value="{{ form.password2.data or '' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">이름</label>
+                                <input type="text" class="form-control" name="name" id="name"
+                                       value="{{ form.name.data or '' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">이메일</label>
+                                <input type="text" class="form-control" name="email" id="email"
+                                       value="{{ form.email.data or '' }}">
+                            </div>
+                             <div class="form-group">
+                                <label for="is_student">학생/교수</label>
+                                 <select  name="is_student" tabindex="-1" class="select2-hidden-accessible"
+                                                aria-hidden="true" id="is_student">
+                                            <option value ="Professor" >Professor</option>
+                                            <option value ="Student">Student</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                            </div>
+                             <div class="form-group">
+                                <label for="department">학과</label>
+                                <input type="text" class="form-control" name="department" id="department"
+                                       value="{{ form.department.data or '' }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">생성하기</button>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

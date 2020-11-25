@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+{% block custom_style %}
+{% endblock %}
+
+{% block content %}
+
+<div class="info">
+    <div class="title-container">
+        <h1>자유 익명 게시판 {{ code }}</h1>
+        <p>질문 또는 정보 공유를 자유롭게 해주세요 ! </p>
+    </div>
+
+    <form method="post" class="post-form">
+        {{ form.csrf_token }}
+        {% include "form_errors.html" %}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text">Title</span>
+        </div>
+            <input type="text" class="form-control" name="title" id="title"
+                   value="{{ form.title.data or '' }}">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Content</span>
+            </div>
+            <textarea class="form-control" id="content" name="content" cols="30" rows="5"
+                placeholder="140자까지 입력할 수 있습니다."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">등록하기</button>
+    </form>
+</div>
+
+<div class="reviews">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">title</th>
+            <th scope="col">content</th>
+            <th scope="col">date</th>
+        </tr>
+        </thead>
+
+        <tbody id="reviews-box">
+            {% for communicate in communicate_list %}
+            <tr>
+                <td>{{communicate.title}}</td>
+                <td>{{communicate.content}}</td>
+                <td>{{communicate.timestamp}}</td>
+                <td><a href="{{ url_for('communicateRe_page', code=communicate.code, communicate_id=communicate.communicate_id) }}"><button class="btn btn-primary" >댓글 보러가기</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

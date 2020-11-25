@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% block custom_style %}
+{% endblock %}
+
+{% block content %}
+
+<div class="schedules" style="padding: 100px">
+    <table class="table">
+        <thead>
+        <tr>
+            <th id="title" scope="col">과목명</th>
+            <th id="professor" scope="col">교수명</th>
+            <th id="time" scope="col">시간</th>
+            <th id="status" scope="col">재실 여부</th>
+        </tr>
+        </thead>
+
+        <tbody id="schedules-box">
+            {% for schedule in schedule_list %}
+                <tr>
+                    <td>{{schedule.subject}}</td>
+                    <td>{{schedule.professor}}</td>
+                    <td>{{schedule.time_location}}</td>
+                    <td><button class="btn btn-{{schedule.color}}">{{ schedule.status }}</button></td>
+                    <td><a href="/communicate/{{schedule.code}}"><button class="btn btn-primary" >게시판 보러가기</button></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

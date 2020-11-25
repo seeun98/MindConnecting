@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block custom_style %}
+{% endblock %}
+
+{% block content %}
+
+<form style="margin : 100px" method="post" >
+    {{ form.csrf_token }}
+    {% include "form_errors.html" %}
+    <div class="form-group">
+        <label for="name">교수님 성함</label>
+        <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp"
+               placeholder="예) 이세은" value="{{form.name.data or ''}}">
+        <small class="form-text text-muted">교수님 성함을 입력해주세요.</small>
+    </div>
+    <div class="form-group">
+        <label for="status">재실 여부</label>
+         <select  name="status" tabindex="-1" class="select2-hidden-accessible"
+                        aria-hidden="true" id="status">
+             <option value="재실">재실</option>
+             <option value="퇴근">퇴근</option>
+             <option value="연구중">연구중</option>
+             <option value="휴식중">휴식중</option>
+         </select>
+    </div>
+    <button type="submit" class="btn btn-primary">등록</button>
+</form>
+
+{% endblock %}

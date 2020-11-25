@@ -1,0 +1,105 @@
+{% extends "index.html" %}
+{% block custom_style %}
+<style type="text/css">
+    * {
+        font-family: "Do Hyeon", sans-serif;
+    }
+
+    h1,
+    h5 {
+        display: inline;
+    }
+
+    .info {
+        padding-left: 100px;
+        padding-right: 100px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .review {
+        text-align: center;
+    }
+
+    .title-container {
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    .reviews {
+        margin-top: 100px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-bottom: 50px;
+
+    }
+
+    ul.mylist li, ol.mylist li {
+        padding: 5px 0px 5px 0px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #efefef;
+        font-size: 12px;
+    }
+
+    
+    
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="title-container">
+    <h1>자유 익명 게시판 {{ code }} {{ communicate_id }}</h1>
+    <p>질문 또는 정보 공유를 자유롭게 해주세요 ! </p>
+</div>
+
+<table class="table">
+    <thead id="element" style="padding-left: 100px">
+    <tr>
+        <th scope="row">title</th>
+        <th scope="row">content</th>
+        <th scope="row">date</th>
+    </tr>
+    </thead>
+
+    <tr >
+        {% for communicate in communicate_code %}
+        <td id="clickedTitle">{{communicate.title}}</td>
+        <td id="clickedContent">{{communicate.content}}</td>
+        <td id="clickedDate">{{communicate.timestamp}}</td>
+        {% endfor %}
+
+    </tr>
+</table>
+
+
+<div class="table" style="margin:100px">
+    <div class="RElist-head">
+        <table class="styled-table" style="margin:5px">
+
+        <ul>
+            
+            {% for comment in communicateRe_code %}
+                <li>{{comment.REcontent}}</li>
+                <li>{{comment.timestamp}}</li>
+            {% endfor %}
+              
+
+        </ul>
+        </table>
+    </div>
+    
+
+</div>
+
+<form method="post" class="post-form">
+    {{ form.csrf_token }}
+    {% include "form_errors.html" %}
+    <div class="RE" style="padding: 50px">
+        <p>댓글</p>
+        <input type="text" class="form-control" rows="3" placeholder="댓글 입력" id="REcontent" name="REcontent">
+        <button  type="submit" style="margin:50px 0px 0px 0px" class="btn btn-primary">댓글 등록</button>
+    </div>
+</form>
+
+{% endblock %}
