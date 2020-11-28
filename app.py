@@ -201,15 +201,35 @@ def mySchedule():
                                             'time_location':1,
                                             'code':1}))
     print(schedule_list)
-    return render_template('mySchedule.html', schedule_list = schedule_list)
+
+    mySchedule_list = list(db.mySchedule.find({'user':g.user}))
+    print(mySchedule_list)
+    return render_template('mySchedule.html', schedule_list = schedule_list, mySchedule_list = mySchedule_list)
 
 # -----------------담기---------------------------
 @app.route("/mine/<code>", methods=['GET'])
 def mine(code):
     print("HELLO")
+    print(code)
+    box = list(db.schedule.find({'code':code}))
+    
+    for b in box:
+        subject = b['subject']
+        professor = b['professor']
+        time_location = b['time_location']
+    
+    print(subject, professor, time_location)
 
-    box = list(db.schedule.find({'code':code}, {'_id' : 0}))
-    print(box)
+    mine = {
+        'user' : g.user,
+        'code' : code,
+        'subject' : subject,
+        'professor' : professor,
+        'time_location' : time_location,
+
+    }
+    print(mine)
+    db.mySchedule.insert_one(mine)
 
     return redirect(url_for('mySchedule'))
 

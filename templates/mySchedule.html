@@ -138,73 +138,27 @@
 
           <div id="right" class="schedule-box">
 
-              <div id="schedule">
-
+                <div id="schedule">
+                      {% for mine in mySchedule_list %}
                       <div class="boxes">
                         <div id="box1" class="boxfirst" onclick="location.href='student';">
-                            <div class="sub" id="sub1" name="sub">알고리즘 </div>
-                            <div class="prof" id="pro1" name="prof">김도형 </div>
+                            <div class="sub" id="sub1" name="sub">{{mine.subject}}</div>
+                            <div class="prof" id="pro1" name="prof">{{mine.professor}} </div>
 
                         </div>
-                        <div id="box2" class="boxfirst">
-                            <div class="sub" id="sub2" >프로그래밍</div>
-                            <div class="prof" id="pro2">심광섭 </div>
-                        </div>
-
-                          <div id="box3" class="boxfirst">
-                        <div class="sub" id="sub3">데이터베이스프로그래밍</div>
-                            <div class="prof" id="pro3">장윤재 </div>
+                        
                       </div>
-
-                      </div>
-
-
-                       <div class="boxes">
-
-                       <div id="box4" class="boxfirst">
-                            <div class="sub" id="sub4">파이썬</div>
-                            <div class="prof" id="pro4">이윤경 </div>
-                      </div>
-                           <div id="box5" class="boxfirst">
-                        <div class="sub" id="sub5">네트워크</div>
-                            <div class="prof" id="pro5">이윤경 </div>
-
-                      </div>
-
-                           <div id="box6" class="boxfirst">
-                          <div class="sub" id="sub6">시스템관리</div>
-                            <div class="prof" id="pro6">우종정 </div>
-
-                      </div>
-
-                      </div>
-
-                    <div id="box-3rd" class="boxes">
-
-                       <div id="box7" class="boxfirst">
-                            <div class="sub" id="sub7">교양</div>
-                            <div class="prof" id="pro7">이혜린 </div>
-                       </div>
-                       <div id="box8" class="boxfirst">
-                            <div class="sub" id="sub8">교양2</div>
-                            <div class="prof" id="pro8">이혜린 </div>
-                       </div>
-                        <div id="box9" class="boxfirst">
-                            <div class="sub" id="sub9">교양3</div>
-                            <div class="prof" id="pro9">이혜린 </div>
-                        </div>
-
-                    </div>
+                      {% endfor %}
 
 
-              </div>
-
-
-              </div>
-
-          </div>
+                </div>
+            </div>
 
 
         </div>
+    </div>
+        
+
+
 
 {% endblock %}
