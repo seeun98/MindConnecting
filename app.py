@@ -189,6 +189,33 @@ def communicateRe_page(code, communicate_id):
     return render_template('communicateRe.html', communicate_code = communicate_code, communicateRe_code = communicateRe_code, form=form )
 
 
+# -----------------내시간표 고르기------------------
+@app.route("/mySchedule", methods=['POST', 'GET'])
+def mySchedule():
+    print("HERE")
+    
+    schedule_list = list(db.schedule.find({},
+                                            {'_id':0,
+                                            'subject':1,
+                                            'professor':1,
+                                            'time_location':1,
+                                            'code':1}))
+    print(schedule_list)
+    return render_template('mySchedule.html', schedule_list = schedule_list)
+
+# -----------------담기---------------------------
+@app.route("/mine/<code>", methods=['GET'])
+def mine(code):
+    print("HELLO")
+
+    box = list(db.schedule.find({'code':code}, {'_id' : 0}))
+    print(box)
+
+    return redirect(url_for('mySchedule'))
+
+
+
+
 
 if __name__ == '__main__':
     app.run("0.0.0.0", port=5050, debug=True)
