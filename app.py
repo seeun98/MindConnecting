@@ -244,7 +244,7 @@ def mine(code):
 def professorCommunicateList(code):
     
 
-    professorCommunicateInfo = list(db.professorCommunicate.find({},{'_id':0, 'title':1, 'content':1, 'timestamp':1, 'user':1}))
+    professorCommunicateInfo = list(db.professorCommunicate.find({'code':code}))
     # professorCommunicateInfo.append(code)
     # print(professorCommunicateInfo)
 
