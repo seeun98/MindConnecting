@@ -4,7 +4,7 @@
 
 {% block content %}
 <div align="right" class="mySchedules" >
-    <a href="{{ url_for('mySchedule')}}"</a><button class="btn btn-success">시간표</button>
+    <a href="{{ url_for('mySchedule')}}"</a><button class="btn btn-info" style="margin: 50px">시간표 / 공지 게시판</button>
 </div>
 
 <div class="schedules" style="padding: 0px 0px 100px 100px">
@@ -25,7 +25,9 @@
                     <td>{{schedule.professor}}</td>
                     <td>{{schedule.time_location}}</td>
                     <td><button class="btn btn-{{schedule.color}}">{{ schedule.status }}</button></td>
+                    {% if g.is_student %}
                     <td><a href="/communicate/{{schedule.code}}"><button class="btn btn-primary" >게시판 보러가기</button></a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

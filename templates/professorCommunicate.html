@@ -5,11 +5,15 @@
 {% block content %}
 
     {% if g.is_professor %}
-    <div>
-        <button><a href= "{{ url_for('professorCommunicateForm') }}">게시글 등록하기</a></button>
+    <div align="right">
+        <button class="btn btn-success" ><a href= "{{ url_for('professorCommunicateForm', code=code) }}"  style="padding: 50px; color:white">게시글 등록하기</a></button>
     </div>
     {% endif %}
+    
+
     {% for info in professorCommunicateInfo %}
+
+        
     <div class ="container">
             <div class= "card bg-light text-dark">
                 <div class="card-header">{{info.title}}</div>

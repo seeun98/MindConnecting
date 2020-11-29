@@ -78,10 +78,16 @@ def load_logged_in_user():
     else:
         g.user = db.member.find_one({ 'id' : user_id})['name']
         g.is_professor = db.member.find_one({ 'id':user_id})['is_student']
+        g.is_student = db.member.find_one({'id':user_id})['is_student']
         if g.is_professor == 'Professor':
             g.is_professor = True
         else:
             g.is_professor = False
+        # -----------
+        if g.is_student == 'Student':
+            g.is_student = True
+        else:
+            g.is_student = False
         
 
 @app.route('/logout')
@@ -239,20 +245,25 @@ def professorCommunicateList(code):
     
 
     professorCommunicateInfo = list(db.professorCommunicate.find({},{'_id':0, 'title':1, 'content':1, 'timestamp':1, 'user':1}))
+    # professorCommunicateInfo.append(code)
+    # print(professorCommunicateInfo)
 
-    return render_template('professorCommunicate.html', professorCommunicateInfo = professorCommunicateInfo)
+    return render_template('professorCommunicate.html', professorCommunicateInfo = professorCommunicateInfo, code=code)
 
 
 #---------공지게시판 등록---------
-@app.route("/professorCommunicateForm", methods=['GET', 'POST'])
-def professorCommunicateForm():
-    form = ProfessorCommunicateForm
+@app.route("/professorCommunicateForm/<code>", methods=['GET', 'POST'])
+def professorCommunicateForm(code):
+    form = ProfessorCommunicateForm()
+    professorSubject = list(db.schedule.find({'professor':g.user}))
+    print(professorSubject)
 
     if request.method == 'POST':
         print("HERE")
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        professorCommunicateInfo = {          
+        professorCommunicateInfo = {
+            'code':code,      
             'title': form.title.data,
             'content': form.content.data,
             'timestamp' : timestamp,
@@ -260,6 +271,8 @@ def professorCommunicateForm():
         }
         print(professorCommunicateInfo)
         db.professorCommunicate.insert_one(professorCommunicateInfo)
+
+        return redirect(url_for('professorCommunicateList', code=code))
 
 
     return render_template('professorCommunicateForm.html', form=form)
