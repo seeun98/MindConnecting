@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+{% block custom_style %}
+    
+
+
+{% endblock %}
+
+{% block content %}
+<div class="info">
+    <div class="title-container">
+        <h1>공지사항</h1>
+        <p> 공지사항을 잘 숙지 하여 학습에 지장이 없도록 해주세요. </p>
+    </div>
+
+    <form method="post" class="post-form">
+        {{ form.csrf_token }}
+        {% include "form_errors.html" %}
+        <div class = "card bg-light text-dark">
+            <div class="card-header">
+                <input label="Notification : " id="title" type="text" class="form-control" placeholder="글 제목" value="{{form.title.data or ''}}" name="title" /> 
+            </div>
+            <div class="card-body">
+                <textarea label="Content : "id="content"class="form-control" placeholder="글 내용" value="{{form.content.data or ''}}" name="content" style="height:400px;"></textarea>
+            </div>
+            
+            
+        </div>
+    
+        <div>
+            <button class="btn btn-primary btn-sm float-right" type="submit" style="width:100px; height:50px"><strong>게시글 등록</strong></button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

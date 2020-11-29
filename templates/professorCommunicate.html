@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block custom_style %}
+{% endblock %}
+
+{% block content %}
+
+    {% if g.is_professor %}
+    <div>
+        <button><a href= "{{ url_for('professorCommunicateForm') }}">게시글 등록하기</a></button>
+    </div>
+    {% endif %}
+    {% for info in professorCommunicateInfo %}
+    <div class ="container">
+            <div class= "card bg-light text-dark">
+                <div class="card-header">{{info.title}}</div>
+                <div class="card-body">{{info.content}}</div>
+                <div class="card-footer">{{info.timestamp}}</div>
+                <div class="card-footer">{{info.user}}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}

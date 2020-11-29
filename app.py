@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import redirect
 from pymongo import MongoClient
 from datetime import datetime
-from forms import UserCreateForm, UserLoginForm, ProfessorOfficeForm, CommunicateForm, CommunicateReForm
+from forms import UserCreateForm, UserLoginForm, ProfessorOfficeForm, CommunicateForm, CommunicateReForm, ProfessorCommunicateForm
 import uuid
 import config
 
@@ -233,8 +233,36 @@ def mine(code):
 
     return redirect(url_for('mySchedule'))
 
+# ----------공지게시판-------------
+@app.route("/professorCommunicateList/<code>", methods=['GET'])
+def professorCommunicateList(code):
+    
+
+    professorCommunicateInfo = list(db.professorCommunicate.find({},{'_id':0, 'title':1, 'content':1, 'timestamp':1, 'user':1}))
+
+    return render_template('professorCommunicate.html', professorCommunicateInfo = professorCommunicateInfo)
 
 
+#---------공지게시판 등록---------
+@app.route("/professorCommunicateForm", methods=['GET', 'POST'])
+def professorCommunicateForm():
+    form = ProfessorCommunicateForm
+
+    if request.method == 'POST':
+        print("HERE")
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        professorCommunicateInfo = {          
+            'title': form.title.data,
+            'content': form.content.data,
+            'timestamp' : timestamp,
+            'user' : g.user
+        }
+        print(professorCommunicateInfo)
+        db.professorCommunicate.insert_one(professorCommunicateInfo)
+
+
+    return render_template('professorCommunicateForm.html', form=form)
 
 
 if __name__ == '__main__':

@@ -143,7 +143,11 @@
                       <div class="boxes">
                         <div id="box1" class="boxfirst" onclick="location.href='student';">
                             <div class="sub" id="sub1" name="sub">{{mine.subject}}</div>
-                            <div class="prof" id="pro1" name="prof">{{mine.professor}} </div>
+                            <div class="prof" id="pro1" name="prof"> 
+                                {{mine.professor}}
+                                <button class=btn btn-primary><a href = "{{ url_for('professorCommunicateList', code = mine.code )}}">공지게시판</a></button>
+                            </div>
+                            
 
                         </div>
                         

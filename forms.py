@@ -35,3 +35,7 @@ class CommunicateForm(FlaskForm):
 
 class CommunicateReForm(FlaskForm):
     REcontent = StringField('내용', validators=[DataRequired(), Length(max=140)])
+
+class ProfessorCommunicateForm(FlaskForm):
+    title = StringField('제목', validators=[DataRequired(), Length(min=3, max=25)])
+    content = StringField('내용', validators=[DataRequired(), Length(max=1000)])

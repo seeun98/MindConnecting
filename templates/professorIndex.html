@@ -4,7 +4,7 @@
 
 {% block content %}
 <div align="right" class="mySchedules" >
-    <a href="{{ url_for("mySchedule")}}"</a><button class="btn btn-success">시간표</button>
+    <a href="{{ url_for('mySchedule')}}"</a><button class="btn btn-success">시간표</button>
 </div>
 
 <div class="schedules" style="padding: 0px 0px 100px 100px">
@@ -18,7 +18,7 @@
         </tr>
         </thead>
 
-        <tbody id="schedules-box">
+        <tbody id="schedules-box" style="color:black">
             {% for schedule in schedule_list %}
                 <tr>
                     <td>{{schedule.subject}}</td>
