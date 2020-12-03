@@ -239,6 +239,25 @@ def mine(code):
 
     return redirect(url_for('mySchedule'))
 
+
+# -----------------담은 시간표 삭제------------------
+@app.route("/notMine/<code>", methods=['GET'])
+def notMine(code):
+    print("NOTHELLO")
+    print(code)
+
+    box = list(db.mySchedule.find({'code': code}))
+    print(box)
+    # for b in box:
+    #     code = b['code']
+
+    print(code)
+
+    db.mySchedule.remove({'code': code})
+
+    return redirect(url_for('mySchedule'))
+
+
 # ----------공지게시판-------------
 @app.route("/professorCommunicateList/<code>", methods=['GET'])
 def professorCommunicateList(code):

@@ -31,10 +31,10 @@
         position: relative;
         padding : 50px;
         width: 90%;
-        
+
         background-color: #FFFFFF;
-        
-        border: 1px solid white; 
+
+        border: 1px solid white;
     }
 
     #schedule_list {
@@ -42,8 +42,8 @@
         height : 650px;
         position : relative;
         border : 1px solid white;
-        
-        
+
+
     }
 
     .boxes {
@@ -65,9 +65,12 @@
         line-height:5em;
         color: black;
         background-color:  rgb(215, 191, 241);
+        width: 25%
         height: 80%;
         text-align: center;
-        font-size: 150%;
+        font-size: 100%;
+        font-weight: 500;
+        word-break: normal;
     }
     .prof {
         /* color: #3BAEDA; */
@@ -75,8 +78,13 @@
         height: 20%;
         text-align: right;
     }
-
 </style>
+<script>
+
+
+
+
+</script>
 {% endblock %}
 
 {% block content %}
@@ -84,27 +92,27 @@
         <div class="margin"></div>
 
         <div id="middle" class="workspace" >
-            <form action="/select_subject" method="post">
+            <form>
                 <div id="left" class="sbj_list">
                     <div id="left-top" align="center" border="1">
                         <table >
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <select class="select_option" name="select_option">
-                                        <option value="">- 전체 -</option>
-                                        <option value="sbjNm">교과목명</option>
-                                        <option value="profNm">교수명</option>
-                                    </select>
-                                <td></td>
-                                <td>
-                                    <input class="search" type="text" name="what">
-                                </td>
-                                <td></td>
-                                <td>
-                                    <button class="search-btn" type="submit" onclick="makeSearch()" style="text-align: center; vertical-align: middle;">조회</button>
-                                </td>
-                            </tr>
+<!--                            <tr>-->
+<!--&lt;!&ndash;                                <td></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <select class="select_option" name="select_option">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                        <option value="">- 전체 -</option>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <option value="sbjNm">교과목명</option>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                        <option value="profNm">교수명</option>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td></td>&ndash;&gt;-->
+<!--                                <td>-->
+<!--                                    <input class="search" type="text" id="what" name="what">-->
+<!--                                </td>-->
+<!--                                <td></td>-->
+<!--                                <td>-->
+<!--                                    <button class="search-btn" type="submit" onclick="search()" style="text-align: center; vertical-align: middle;">조회</button>-->
+<!--                                </td>-->
+<!--                            </tr>-->
                         </table>
 
                         <div id ="schedule_list" >
@@ -114,10 +122,10 @@
                                         <th id="title" scope="col">과목명</th>
                                         <th id="professor" scope="col">교수명</th>
                                         <th id="time" scope="col">시간</th>
-                                    
+
                                     </tr>
                                     </thead>
-                            
+
                                     <tbody id="schedules-box">
                                         {% for schedule in schedule_list %}
                                             <tr>
@@ -125,8 +133,10 @@
                                                 <td>{{schedule.professor}}</td>
                                                 <td>{{schedule.time_location}}</td>
                                                 <td><a href="{{ url_for('mine', code=schedule.code) }}">담기</td>
-                                                
+
                                             </tr>
+
+
                                         {% endfor %}
                                     </tbody>
                             </table>
@@ -139,20 +149,19 @@
           <div id="right" class="schedule-box">
 
                 <div id="schedule">
-                      {% for mine in mySchedule_list %}
                       <div class="boxes">
-                        <div id="box1" class="boxfirst" onclick="location.href='student';">
+                          {% for mine in mySchedule_list %}
+                        <div id="box1" class="boxfirst" >
+                            <a href = "{{ url_for('notMine', code = mine.code) }}" style="float: right; cursor: pointer;">X</a>
                             <div class="sub" id="sub1" name="sub">{{mine.subject}}</div>
-                            <div class="prof" id="pro1" name="prof"> 
+                            <div class="prof" id="pro1" name="prof">
                                 {{mine.professor}}
                                 <button class=btn btn-primary><a href = "{{ url_for('professorCommunicateList', code = mine.code )}}">공지게시판</a></button>
                             </div>
-                            
-
                         </div>
-                        
+                        {% endfor %}
                       </div>
-                      {% endfor %}
+
 
 
                 </div>
@@ -161,7 +170,7 @@
 
         </div>
     </div>
-        
+
 
 
 
